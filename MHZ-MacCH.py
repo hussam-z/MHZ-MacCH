@@ -26,9 +26,8 @@ print("""
 
 Usage : 
 	
-	1- Enter the  OS type (linex , mac os , windows)
-	2- Enter the Interface name
-	3- Enter the new Mac Address
+	1- Enter the Interface name
+	2- Enter the new Mac Address
 .............................................................
 
 """)
