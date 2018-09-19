@@ -54,7 +54,7 @@ def the_inputs() :
         print("\n{!} 00ps , you forget to enter the Interface Name , Run the tool again to enter it ...")
         exit()
     
-    global new_mac
+    global new_mac # make the new_mac global to compare with him if the mac changed in the bottom
     new_mac = input("{+} Enter The New Mac => ")
     if not new_mac :
         print("\n{!} 00ps , you forget to enter the New Mac , Run the tool again to enter it  ...")  
@@ -67,7 +67,7 @@ def the_inputs() :
 
 def the_changing(the_inputs_function) : 
 
-    subprocess.call(["ifconfig",interface,"down"])
+    subprocess.call(["ifconfig",interface,"down"]) # the commands to change the mac address
     subprocess.call(["ifconfig",interface,"hw","ether",new_mac])
     subprocess.call(["ifconfig",interface,"up"])
 
@@ -75,10 +75,10 @@ def the_changing(the_inputs_function) :
 
 def check_current_mac(interface_input) : 
 
-    ifconfig_result = subprocess.check_output(["ifconfig",interface])
-    re_result = re.search(r"\w\w:\w\w:\w\w:\w\w:\w\w:\w\w",str(ifconfig_result))
+    ifconfig_result = subprocess.check_output(["ifconfig",interface]) # to check out the output of 'ifconfig' command
+    re_result = re.search(r"\w\w:\w\w:\w\w:\w\w:\w\w:\w\w",str(ifconfig_result)) # regular expression to take the mac address only
 
-    if re_result : 
+    if re_result : # if there are mac address 
         return re_result.group(0)
     else:
         print("{-} Could not read mac address .. !")
@@ -86,7 +86,7 @@ def check_current_mac(interface_input) :
 ##############################################
 
 
-check_os_type()
+check_os_type() # to check the os if it linux or another os
 
 (interface,new_mac) = the_inputs()
 
@@ -96,13 +96,14 @@ print("\n{+} The current mac --> " + str(current_mac))
 
 the_changing(the_inputs)
 
-time.sleep(10)
+time.sleep(10) # the sleep here to be sure the system take its time to change the mac address
 
 current_mac = check_current_mac(the_inputs)
 if current_mac == new_mac :
     
-    print("\n{*} The mac address changing process completed")
+    print("\n{*} The mac address changing process completed.")
 
 else:
-    print("\n{!} Sorry")
+    print("\n{!} Sorry the mac address does not change ... !")
+    print("{*} Try a different mac address ...")
 
